@@ -13,25 +13,30 @@ export class App extends Component {
     {id: 'id-3', name: 'Eden Clements', number: '645-17-79'},
     { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
-    name: '',
-    number: '',
     filter: '',
   };
 
-  handleChange = event => {
-    this.setState({ [event.currentTarget.name]: event.currentTarget.value })
-  };
+onAddContact = (name, number) => {
+  const contactExists = this.state.contacts.find(
+    contact => contact.name.toLowerCase() === name.toLowerCase()
+  );
+  if (contactExists) {
+    alert(`${name} is already in contacts.`);
+    return;
+  }
+  const newContact = { id: nanoid(), name: name, number: number };
+  this.setState(prevState => ({
+    contacts: [...prevState.contacts, newContact],
+    filter: '',
+  }));
+};
 
-  onAddContact = () => {
-    const newContact = { id: nanoid(), name: this.state.name, number: this.state.number };
-    this.setState(prevState => ({
-      contacts: [...prevState.contacts, newContact],
-      name: '',
-      number: '',
-      filter: '',
-    }));
-  };
-
+  onDeleteContact = (id) => {
+  this.setState(prevState => ({
+    contacts: prevState.contacts.filter(contact => contact.id !== id)
+  }));
+};
+  
   changeFilter = (event) => {
     this.setState({filter: event.currentTarget.value})
   };
@@ -43,10 +48,10 @@ export class App extends Component {
     return (
      <div>
         <Section title="Phonebook">
-          <NameForm name={this.state.name} number={this.state.number} handleChange={this.handleChange} onAddContact={this.onAddContact}></NameForm>
+          <NameForm onAddContact={this.onAddContact}></NameForm>
         </Section>
         <Section title="Contacts">
-          <ContactsList contacts={visibleContacts} value={this.state.filter} changeFilter={this.changeFilter}></ContactsList>
+          <ContactsList contacts={visibleContacts} value={this.state.filter} changeFilter={this.changeFilter} onDeleteContact={this.onDeleteContact}></ContactsList>
         </Section>
       </div>
   );
