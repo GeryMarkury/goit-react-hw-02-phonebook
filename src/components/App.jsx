@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { nanoid } from 'nanoid'
 import { Section } from './Section/Section';
 import { NameForm } from './Section/NameForm/NameForm';
 import { ContactsList } from './Section/ContactsList/ContactsList';
@@ -15,8 +16,12 @@ export class App extends Component {
   };
 
   onAddContact = () => {
-    this.state.contacts.push({ id: 1, name: this.state.name });
-  }
+    const newContact = { id: nanoid(), name: this.state.name };
+    this.setState(prevState => ({
+      contacts: [...prevState.contacts, newContact],
+      name: '',
+    }));
+  };
 
   render() {
     return (
@@ -25,7 +30,7 @@ export class App extends Component {
          <NameForm name={this.state.name} handleNameChange={this.handleNameChange} onAddContact={this.onAddContact}></NameForm>
         </Section>
         <Section title="Contacts">
-          <ContactsList></ContactsList>
+          <ContactsList contacts={this.state.contacts}></ContactsList>
         </Section>
       </div>
   );

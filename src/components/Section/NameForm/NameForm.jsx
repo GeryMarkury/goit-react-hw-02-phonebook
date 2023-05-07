@@ -11,7 +11,6 @@ export const NameForm = ({ name, handleNameChange, onAddContact }) => (
         /></label>
         <button type="button" onClick={onAddContact}>Add contact</button>
     </form> 
-   
 )
     
    
