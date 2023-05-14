@@ -1,8 +1,7 @@
 import { Component } from 'react';
 import { nanoid } from 'nanoid'
-import { Section } from './Section/Section';
-import { NameForm } from './Section/NameForm/NameForm';
-import { ContactsList } from './Section/ContactsList/ContactsList';
+import { NameForm } from './NameForm/NameForm';
+import { ContactsList } from './ContactsList/ContactsList';
 
 export class App extends Component {
   
@@ -47,12 +46,10 @@ onAddContact = (name, number) => {
 
     return (
      <div>
-        <Section title="Phonebook">
+        <h1>Phonebook</h1>
           <NameForm onAddContact={this.onAddContact}></NameForm>
-        </Section>
-        <Section title="Contacts">
+        <h2>Contacts</h2>
           <ContactsList contacts={visibleContacts} value={this.state.filter} changeFilter={this.changeFilter} onDeleteContact={this.onDeleteContact}></ContactsList>
-        </Section>
       </div>
   );
   } 
