@@ -2,6 +2,7 @@ import { Component } from 'react';
 import { nanoid } from 'nanoid'
 import { NameForm } from './NameForm/NameForm';
 import { ContactsList } from './ContactsList/ContactsList';
+import css from '../components/App.module.css'
 
 export class App extends Component {
   
@@ -45,7 +46,7 @@ onAddContact = (name, number) => {
     const visibleContacts = this.state.contacts.filter(contact => contact.name.toLowerCase().includes(normalizedFilter));
 
     return (
-     <div>
+     <div className={css.container}>
         <h1>Phonebook</h1>
           <NameForm onAddContact={this.onAddContact}></NameForm>
         <h2>Contacts</h2>
